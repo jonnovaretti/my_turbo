@@ -1,14 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Articles</h1>
+<h1>Articles xsds</h1>
 
-<div id="articles">
+<%= link_to "New article", new_article_path, data: { turbo_frame: dom_id(Article.new) } %>
+
+<%= my_turbo_frame_tag Article.new %>
+
+
+<div id="articles" style="margin:15px">
   <% @articles.each do |article| %>
     <%= render article %>
-    <p>
-      <%= link_to "Show this article", article %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New article", new_article_path %>

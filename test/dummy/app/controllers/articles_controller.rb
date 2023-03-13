@@ -22,7 +22,10 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: 'Article was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.turbo_stream
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +34,12 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: 'Article was successfully updated.'
+
+      respond_to do |format|
+        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        format.turbo_stream
+      end
+
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +48,11 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   def destroy
     @article.destroy
-    redirect_to articles_url, notice: 'Article was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.turbo_stream
+    end
   end
 
   private

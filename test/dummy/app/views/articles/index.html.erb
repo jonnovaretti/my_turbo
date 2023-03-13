@@ -6,10 +6,7 @@
 
 <%= my_turbo_frame_tag Article.new %>
 
-
-<div id="articles" style="margin:15px">
-  <% @articles.each do |article| %>
-    <%= render article %>
-  <% end %>
+<div id="articles">
+  <%= render @articles %>
 </div>
 

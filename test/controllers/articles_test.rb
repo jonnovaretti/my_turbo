@@ -17,15 +17,9 @@ class MyTurbo::ArticlesTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_difference('Article.count') do
-      post articles_url, params: { article: { context: 'MyText' } }, headers: { 'Accept': 'text/vnd.turbo-stream.html' }
+      post articles_url, params: { article: { context: 'MyText' } }, as: :turbo_stream
     end
 
-    assert_response :success
-    assert_equal Mime[:turbo_stream], @response.media_type
-
-    selector = %(turbo-stream[action="prepend"])
-    selector << %([target="articles"])
-
-    assert_select selector, 1
+    assert_turbo_stream(action: 'prepend', target: 'articles')
   end
 end

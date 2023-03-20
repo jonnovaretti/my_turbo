@@ -51,8 +51,12 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.turbo_stream
+      format.turbo_stream { render body: turbo_stream.remove(@article) }
     end
+  end
+
+  def turbo_stream
+    MyTurbo::Streams::TagBuilder.new(view_context)
   end
 
   private
